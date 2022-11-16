@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+	<Properties>
+		<Property name="customlayout">%d{HH:mm:ss.SSS} %-16level %-48logger %-20marker - %msg%ex{10}%n</Property>
+	</Properties>
+	<CustomLevels>
+		<CustomLevel name="ASSERTION_FAILED" intLevel="200"/>
+	</CustomLevels>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${customlayout}" />
+		</Console>
+	
+		<!-- 
+		The filenames which are used here only will match to the
+		setting in the root logger. Later in this file the log
+		level will be changed for specific classes or packages.
+		As an example, it might be possible to set trace level
+		for a specific class, then the error log will also include
+		the log messages with trace level.
+		If you define a log level here it will not have any effect.
+		-->
+		<File name="trace" fileName="trace.log" append="false">
+			<!--<RegexFilter regex="A:.*|B:.*" onMatch="ACCEPT" onMismatch="DENY"/>-->
+			<!-- <MarkerFilter marker="THROWING[ EXCEPTION ]" onMatch="DENY" onMismatch="NEUTRAL"/> -->
+			<PatternLayout pattern="${customlayout}"/>
+		</File>
+		<File name="debug" fileName="debug.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<File name="info" fileName="info.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<File name="warn" fileName="warn.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<File name="error" fileName="error.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<File name="fatal" fileName="fatal.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<File name="assert" fileName="assert.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<File name="test" fileName="test.log" append="false">
+			<PatternLayout pattern="${customlayout}" />
+		</File>
+		<!-- 
+		<File name="html" fileName="report.html" append="false">
+			<HTMLLayout charset="UTF-8" title="Log4j 2 Demo" datePattern="HH:mm:ss.SSS"/>
+		</File>
+		-->
+		<!-- 
+		<Socket name="socket" host="192.168.178.1" port="14300" protocol="UDP">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-16level - %msg%ex{10}%n"/>
+		</Socket>
+		-->
+	</Appenders>
+	<Loggers>
+		<Root level="TRACE">
+			<AppenderRef ref="console" level="INFO" />
+			<AppenderRef ref="test"    level="INFO" />
+			<AppenderRef ref="trace"   level="TRACE" />
+			<AppenderRef ref="debug"   level="DEBUG" />
+			<AppenderRef ref="info"    level="INFO" />
+			<AppenderRef ref="warn"    level="WARN" />
+			<AppenderRef ref="error"   level="ERROR" />
+			<AppenderRef ref="assert"  level="ASSERTION_FAILED" />
+			<!-- <AppenderRef ref="socket"  level="INFO"/> -->
+		</Root>
+		<!-- 
+		The level defined in the next logger will override
+		the log levels defined above in the AppenderRefs
+		-->
+		<Logger name="com.wehnert.log4j2demo.package2" level="TRACE" additivity="false" >
+			<AppenderRef ref="test" />
+			<!-- <AppenderRef ref="socket" />-->
+		</Logger>
+		<Logger name="com.wehnert.log4j2demo.testappender" level="TRACE" additivity="false">
+			<AppenderRef ref="test"/>
+		</Logger>
+	</Loggers>
+</Configuration>
